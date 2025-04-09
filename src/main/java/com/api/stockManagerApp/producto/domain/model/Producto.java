@@ -1,6 +1,7 @@
 package com.api.stockManagerApp.producto.domain.model;
 
 import com.api.stockManagerApp.categoria.domain.model.Categoria;
+import com.api.stockManagerApp.proveedor.domain.model.Proveedor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +31,16 @@ public class Producto {
     private BigDecimal precio;
     @Column(name = "stock_actual", nullable = false)
     private Integer stockActual;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proveedor", insertable = false, updatable = false)
+    private Proveedor proveedor;
+    @Column(name = "id_categoria")
+    private Long idCategoria;
+    @Column(name = "id_proveedor")
+    private Long idProveedor;
     @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
 
