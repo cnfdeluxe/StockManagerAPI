@@ -30,9 +30,11 @@ public class Producto {
     private BigDecimal precio;
     @Column(name = "stock_actual", nullable = false)
     private Integer stockActual;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
+    @Column(name = "id_categoria")
+    private Long idCategoria;
     @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
 
