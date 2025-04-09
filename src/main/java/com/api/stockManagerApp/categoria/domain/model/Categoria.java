@@ -1,45 +1,39 @@
-package com.api.stockManagerApp.producto.domain.model;
+package com.api.stockManagerApp.categoria.domain.model;
 
-import com.api.stockManagerApp.categoria.domain.model.Categoria;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "categoria")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Producto {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_producto")
+    @Column(name = "id_categoria")
     private Long id;
-    @Column(nullable = false, length = 150)
+
+    @Column(nullable = false, unique = true, length = 100)
     private String nombre;
+
     @Column(columnDefinition = "TEXT")
     private String descripcion;
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal precio;
-    @Column(name = "stock_actual", nullable = false)
-    private Integer stockActual;
-    @ManyToOne
-    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
-    private Categoria categoria;
+
     @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
-
 
     @PrePersist
     public void prePersist() {
         this.fechaCreacion = LocalDateTime.now();
     }
+
 
 }
